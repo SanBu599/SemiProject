@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="Announcement">
+
+	<!-- 추가하기 -->
+	<insert id="announcementInsert" parameterType="ssg.com.maeil.dto.AnnouncementDto">
+		insert into maeil_announcement(seq,employee_id,title,content,writing_period,auth,readcount,del)
+		values (select ifnull(max(seq),0)+1 from maeil_announcement),{#employee_id},{#title},{#content},now(),{#auth},0,0 )
+	</insert>
+	
+	<!-- 리스트보기 -->
+	<select id="announcementList" parameterType="ssg.com.maeil.dto.AnnouncementSearch"
+		resultType="ssg.com.maeil.dto.AnnouncementDto">
+	select seq,employee_id,title,content,writing_period,auth
+	from maeil_announcement
+	<if test="choice != null and choice != '' and search != null and search != '' ">
+		<if test="choice == 'title'">
+			where title like concat('%', #{search}, '%') and del=0
+		</if>
+		<if test="choice == 'content'">
+			where content like concat('%', #{search}, '%') and del=0
+		</if>
+		<if test="choice == 'writer'">
+			where id=#{search} and del=0
+		</if>	
+	</if>
+	order by seq desc
+	limit ${(pageNumber * 10)}, 10	
+</select>
+
+<select id="getallannouncement" parameterType="ssg.com.maeil.dto.AnnouncementSearch"
+		resultType="Integer">
+	select count(*) 
+	from maeil_announcement
+	<if test="choice != null and choice != '' and search != null and search != '' ">
+		<if test="choice == 'title'">
+			where title like concat('%', #{search}, '%') and del=0
+		</if>
+		<if test="choice == 'content'">
+			where content like concat('%', #{search}, '%') and del=0
+		</if>
+		<if test="choice == 'writer'">
+			where id=#{search} and del=0
+		</if>	
+	</if>
+</select>
+
+</mapper>
