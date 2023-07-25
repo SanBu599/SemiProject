@@ -13,4 +13,10 @@ public interface AnnouncementDao {
 		
 		List<AnnouncementDto> announcementList(AnnouncementSearch Annsearch);
 		int getallannouncement(AnnouncementSearch Annsearch);
+		
+		AnnouncementDto announcementdetail(int seq);
+		
+		int announcementupdate(AnnouncementDto dto);
+		
+		int announcementdelete(int seq);
 }

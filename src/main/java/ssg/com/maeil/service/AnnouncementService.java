@@ -12,4 +12,9 @@ public interface AnnouncementService {
 	List<AnnouncementDto> announcementList(AnnouncementSearch Annsearch);
 	int getallannouncement(AnnouncementSearch Annsearch);
 	
+	AnnouncementDto announcementdetail(int seq);
+	
+	boolean announcementupdate(AnnouncementDto dto);
+	
+	boolean announcementdelete(int seq);
 }

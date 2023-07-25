@@ -1,4 +1,4 @@
-package ssg.com.maeil.daoiml;
+package ssg.com.maeil.daoimpl;
 
 import java.util.List;
 
@@ -16,19 +16,34 @@ public class AnnouncementDaoImpl implements AnnouncementDao{
 	@Autowired
 	SqlSession session;
 
-	String ns = "Announcement";
+	
 	@Override
 	public int announcementInsert(AnnouncementDto dto) {		
-		return session.insert(ns+"announcementInsert",dto);
+		return session.insert("announcementInsert",dto);
 	}
 	@Override
 	public List<AnnouncementDto> announcementList(AnnouncementSearch Annsearch) {
-		return session.selectList(ns+"announcementList",Annsearch);
+		return session.selectList("announcementList",Annsearch);
 	}
 	@Override
 	public int getallannouncement(AnnouncementSearch Annsearch) {
-		return session.selectOne(ns+"getallannouncement", Annsearch);
+		return session.selectOne("getallannouncement", Annsearch);
 	}
+	@Override
+	public AnnouncementDto announcementdetail(int seq) {
+		
+		return session.selectOne("announcementdetail", seq);
+	}
+	@Override
+	public int announcementupdate(AnnouncementDto dto) {
+		return session.update("announcementupdate", dto);
+		
+	}
+	@Override
+	public int announcementdelete(int seq) {
+		return session.update("announcementdelete",seq);
+	}
+	
 
 
 	

@@ -1,32 +1,50 @@
+<%@page import="ssg.com.maeil.dto.MemberDto"%>
+<%@page import="ssg.com.maeil.dto.AnnouncementDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	MemberDto mem = (MemberDto)session.getAttribute("login");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="jquery/jquery.twbsPagination.min.js"></script>
 </head>
 <body>
-<div>
+<div align="center">
 	<h2>공지사항 작성하기</h2>
-		<hr/><br><br>
+		<hr/>
        	<div>
-       	<form method=post action="announcementinsertAf.do" id="frm">
+       	<form method=post id="frm">
        		<table>
        			
 	       		<tr>
-	       		<th width=10%>사원번호</th>
+	       		<th width=10%>작성자</th>
 		       			<td width=80%>
-		       				<form method=post action="announcementinsert.do">
-		       				<input type=text size=15 class="input-sm" id="id" style="height: 30px" value="${sessionScope.id }">
-		       				</form>
+		       				<input type="hidden" size=15 name=employee_id id="employee_id" style="height: 30px" value="<%=mem.getEmployee_id() %>">
+		       				<input type="text" readonly="readonly"  size=15 name=employee_name id="employee_name" style="height: 30px" value="<%=mem.getEmployee_name() %>">
+		       				<select name=type id="type">
+		       					<option value="공지">공지</option>
+		       					<option value="행사">행사</option>
+		       					<option value="채용">채용</option> 
+		       				</select>
 		       			</td>
 	       		</tr>
        			<tr>
        			<th width=20%>제목</th>
 	       			<td width=80%>
-	       				<input type=text name=subject size=50 class="input-sm" id="subject" >
+	       				<input type=text name=title size=50 class="input-sm" id="title" >
 	       				
 	       			</td>
        			</tr>
@@ -45,18 +63,13 @@
 	       				
 	       			</td>
        			</tr>
-       		</table>
-       		</form>
-       	</div>
-       	</div>
-       	</div>
-       	</div>
-
-
+        	</table>
+    	</form>
+	</div>
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#button").click(function(){
+	$("#writeBtn").click(function(){
 		// 제목이 비었는지?
 			if( $("#title").val().trim() == ""){
 				alert("제목을 기입해 주십시오");
@@ -68,7 +81,7 @@ $(document).ready(function(){
 				return;
 			}
 		
-			$("#frm").attr("action", "bbswriteAf.do").submit();		
+			$("#frm").attr("action", "announcementinsertAf.do").submit();		
 		});
 });
 	

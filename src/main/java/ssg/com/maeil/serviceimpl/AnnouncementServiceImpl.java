@@ -30,6 +30,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	public int getallannouncement(AnnouncementSearch Annsearch) {
 		return dao.getallannouncement(Annsearch);
 	}
+
+	@Override
+	public AnnouncementDto announcementdetail(int seq) {
+		return dao.announcementdetail(seq);
+	}
+
+	@Override
+	public boolean announcementupdate(AnnouncementDto dto) {
+		return dao.announcementupdate(dto)>0?true:false;
+	}
+
+	@Override
+	public boolean announcementdelete(int seq) {
+		return dao.announcementdelete(seq)>0?true:false;
+	}
 	
 	
 }

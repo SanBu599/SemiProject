@@ -56,8 +56,52 @@ public class AnnouncementController {
 		if(isS==false) {
 			insertmessage ="작성실패했습니다.";
 		}
+		model.addAttribute("insertmessage",insertmessage);
 		return "message";
 	}
 	
-
+	@GetMapping("announcementdetail.do")
+	public String announcementdetail(int seq,Model model) {
+		System.out.println("AnnouncementController announcementdetail() " + new Date());
+		AnnouncementDto ann = service.announcementdetail(seq);
+		
+		model.addAttribute("ann", ann);
+		return "announcementdetail";
+	}
+	@PostMapping("announcementupdate.do")
+	public String announcementupdate(int seq, Model model) {
+		System.out.println("AnnouncementController announcementupdate() " + new Date());
+		
+		AnnouncementDto ann = service.announcementdetail(seq);
+		model.addAttribute("ann", ann);
+		return "announcementupdate";
+	}
+	
+	@PostMapping("announcementupdateAf.do")
+	public String announcementupdate(AnnouncementDto dto,Model model) {
+		System.out.println("AnnouncementController announcementupdateAf() " + new Date());
+		String updatemessage = "Yes";
+		boolean isS = service.announcementupdate(dto);
+		if(isS==false) {
+			updatemessage= "No";
+		}
+		
+		model.addAttribute("seq",dto.getSeq());
+		model.addAttribute("updatemessage",updatemessage);
+		return "message";
+	}
+	
+	@PostMapping("announcementdelete.do")
+	public String announcementdelete(int seq,Model model) {
+		System.out.println("AnnouncementController announcementdelete() " + new Date());
+		String deletemessage = "Y";
+		boolean isS = service.announcementdelete(seq);
+		if(isS==false) {
+			deletemessage="N";
+		}
+		model.addAttribute("deletemessage",deletemessage);
+		return "message";
+	}
+	
+	
 }
