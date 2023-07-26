@@ -1,110 +1,52 @@
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="javax.print.attribute.standard.DateTimeAtCompleted"%>
 <%@page import="ssg.com.maeil.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	MemberDto dto = (MemberDto)session.getAttribute("login");
+	if(dto == null || (dto.getEmployee_id()+"") == "" ||(dto.getEmployee_id()+"") == null) {
+		%>
+		<script>
+		alert("로그인해주세요");
+		location.href="login.do";
+		</script>
+		<%
+	} else {
+	
+	}
+	String lowerFileName = dto.getNewfilename().toLowerCase();
 %>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>My page</title>
-
-<style>
-
-.content {
-	border-radius: 20px;
-	padding : 50px;
-	background-color: rgb(180, 250, 250);
-	width: 700px;
-	margin-left: 550px;
-	font-size: 2em;
-}
-
-.table {
-	border-collapse: separate;
-	border-spacing: 0 1rem;
-}
-
-.mypageval {
-	border-radius: 10px;
-	padding : 10px;
-	width: 400px;
-	height: 30px;
-	font-size: 1em;
-}
-
-.changeBtn {
-	border-radius: 20px;
-	width: 150px;
-	height: 50px;
-	font-size: 0.6em;
-	margin-top: 30px;
-}
-
-.emailchk {
-	width: 70px;
-	height: 40px;
-	border-radius: 10px;
-	font-size:0.6em;
-}
-
-/* .mypageSelecteVal {
-	border-radius: 10px;
-	padding : 10px;
-	width: 445px;
-	height: 57px;
-	font-size: 1em;
-
-}
- */
- 
-select {
-	border-radius: 10px;
-	padding : 10px;
-	padding-left : 30px;
-	width: 445px;
-	height: 57px;
-	font-size: 1em;
-	border: 2px solid black;
-}
-
- 
-select[disabled] {
-	border-radius: 10px;
-	padding : 10px;
-	padding-left : 30px;
-	width: 445px;
-	height: 57px;
-	font-size: 1em; 
-	color: black; /* 텍스트 색상 */
-	background-color: white; /* 배경 색상 */
-	cursor: not-allowed; /* 커서 모양 */
-	border: 2px solid black; /* 테두리 스타일 */
-}
-
-.imgfile {
-	width: 150px;
-	height: 200px;
-	align-content: center;
-}
-</style>
-
-
+<title>Is Best를 방문해주셔서 감사합니다.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 </head>
 <body>
-
-<div align="center">
+<div class="container">
+	<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/include/sidebar.jsp"></jsp:include>
+	
+  
+  <div id="mainContent" class="content">
+  	<div align="center">
 	<h1>MY PAGE</h1>
 </div>
 <hr/><br/>
 
 <div align="center">
-<img src="http://localhost:9200/Maeil_Naeil/upload/<%=dto.getNewfilename() %>" alt="프로필 이미지" class="imgfile">
+<img src="http://localhost:9200/springSamples/upload/<%=lowerFileName %>" alt="프로필 이미지" class="imgfile">
 </div>
 
 <form action="upload.do" method="post" enctype="multipart/form-data">
@@ -181,137 +123,10 @@ select[disabled] {
 	</table>
 
 </div>
-
-<script>
-
-
-let departmentSelect = document.getElementById("department_name");
-
-for(var i = 0; i < departmentSelect.options.length; i++) {
-    if(departmentSelect.options[i].value == "<%=dto.getDepartment_name() %>") {
-        departmentSelect.options[i].selected = true;
-        break;
-      }
-}
-
-
-let saveYn = "NO";
-
-
-function emailchkBtn() {
-	if($("#employee_email").val().trim() == "") {
-		alert("이메일을 입력해주세요.");
-		return;
-	}
-		$.ajax ({
-		url: "emailchkBtn.do",
-		type: "post",
-		data: { employee_email:$("#employee_email").val().trim() },
-		success: function( response ) {
-		/* 	alert((response)); */
-			if( response == "USE_YES") {
-				alert("사용가능한 이메일입니다");
-				saveYn = "YES";
-				return;
-			} else if ($("#employee_email").val().trim() == ("<%= dto.getEmployee_email() %>")) {
-				alert("현재 사용중인 이메일입니다");
-				saveYn = "YES";
-				return;
-			} else {
-				alert("이미 등록된 이메일입니다.")
-				$("#employee_email").val("");
-				saveYn = "NO";
-			}
-		},
-		error: function(){
-			alert("error");
-		}
-	});
-}
-
-function changeInfo() {
-	
-	// 나의 정보변경 버튼 클릭 시 저장으로 변경
-	
-	if($("#changeInfo").val() == "나의 정보변경") {
-
-		
-		$("#changeInfo").val("저장");
-		$("#changePwd").hide();
-		$("#cancelBtn").show();
-		$("#emailchk").show();
-		
-	/* $("#department_name option").not(":selected").removeAttr("disabled"); */
-		$("#department_name").removeAttr("disabled");
-	
-	/* 	$("#department_name").removeAttr("readonly"); */
-		$("#employee_email").removeAttr("readonly");
-		
-	} else {
-		
-				
-		if($("#employee_email").val().trim() != ("<%= dto.getEmployee_email() %>") && saveYn == "NO"){
-			alert("이메일을 확인해주세요.");
-			return;
-		}
-		
-		// 저장 클릭 시 나의 정보변경으로 변경
-		
-		$("#changeInfo").val("나의 정보변경");
-		$("#changePwd").show();
-		$("#cancelBtn").hide();
-		$("#emailchk").hide();
-		
-/*		$("#department_name option").not(":selected").attr("disabled", "disabled"); */
-		$("#department_name").attr("disabled", "disabled");
-
-/* 		$("#department_name").attr("readonly", "readonly"); */
-		$("#employee_email").attr("readonly", "readonly");
-		
-		
- 		$.ajax ({
-			url: "changeInfo.do",
-			type: "post",
-			contentType: "application/json",
-			data: JSON.stringify({
-				employee_id: $("#employee_id").val().trim(),
-				employee_name: $("#employee_name").val().trim(),
-				erank: $("#erank").val().trim(),
-				employee_email: $("#employee_email").val().trim(),
-				department_name: $("#department_name").val(),
-				edate: $("#edate").val().trim(),
-			}),
-			success: function( response ) {
-				if( response == "success" ) {
-					alert("정보가 변경되었습니다.");
-				} else {
-					alert("이메일 확인 후 저장해주세요.")
-					location.reload();
-				}
-			},
-			error:function(request, status, error){
-
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-
-			}
-
-		});
- 	
-	}
-	
-}
-
-function changePwd() {
-	window.open('changePwd.do','비밀번호 변경하기','width=430,height=500,location=no,status=no,scrollbars=yes');
-}
-
-function cancelBtn() {
-	location.href="mypage.do";
-}
-
-
-</script>
-
-
+  </div>
+  
+<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+</div>
 </body>
+
 </html>

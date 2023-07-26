@@ -16,6 +16,7 @@
 	} else {
 	
 	}
+	String lowerFileName = dto.getNewfilename().toLowerCase();
 %>
 
 <!DOCTYPE html>
@@ -38,39 +39,12 @@
 	<jsp:include page="/WEB-INF/views/include/sidebar.jsp"></jsp:include>
 	
   
-  <div class="item content-1">
-  	<div id="circle"></div>
-  	<br>
-  	<p><%=dto.getEmployee_name() %><%=dto.getErank() %> 님</p><hr>
-  	<p>출근 : <button>출근</button></p><br>
-  	<p>퇴근 : <button>퇴근</button></p>
-  </div>
-  <div class="item content-2"><a href="announcementmain.do">공지사항</a></div>
-  <div class="item content-3"><p>달력</p></div>
-  
-  <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	<div id="mainContent" class="content">
  
+	</div>
+ 
+	<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 </div>
 </body>
-<script type="text/javascript">
-function printTime() {
-	var clock = document.getElementById("clock");
-	var now = new Date();
-
-	clock.innerHTML =
-	(now.getMonth()+1) + "/" +
-	now.getDate() + " " +
-	now.getHours() + ":" +
-	now.getMinutes() + " 	" +
-	now.getSeconds() + " ";
-
-	setTimeout("printTime()", 1000);
-	}
-
-	window.onload = function() {
-	printTime();  
-	};
-</script>
-
 
 </html>

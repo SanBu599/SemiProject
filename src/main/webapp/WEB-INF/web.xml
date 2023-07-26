@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>springSample1</display-name>
+  <display-name>Maeil_Naeil</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -31,6 +31,12 @@
   	<!-- <url-pattern>/</url-pattern> -->
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+  	<servlet-name>default</servlet-name>
+  	<url-pattern>/resources/*</url-pattern>
+  </servlet-mapping>
+  
   
   <!-- db 적용 -->
   <context-param>
@@ -72,16 +78,4 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
-  
-  
 </web-app>
-
-
-
-
-
-
-
-
-
-

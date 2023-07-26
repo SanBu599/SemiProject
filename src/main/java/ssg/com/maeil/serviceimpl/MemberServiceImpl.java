@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ssg.com.maeil.dao.MemberDao;
@@ -93,12 +94,8 @@ public class MemberServiceImpl implements MemberService{
 		return dao.upload(dto)>0?true:false;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	public boolean newemployee(MemberDto dto) {
+		return dao.newemployee(dto)>0?true:false;
+	}
 	
 }
