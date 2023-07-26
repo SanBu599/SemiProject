@@ -16,8 +16,8 @@ public class MemberDaoImpl implements MemberDao {
 	
 	String ns = "Member.";
 	
-	@Override
-	public MemberDto login(MemberDto dto) {		
+	@Override	
+	public MemberDto login(MemberDto dto) {
 		return session.selectOne(ns + "login", dto);
 	}
 
@@ -56,6 +56,9 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update(ns + "upload", dto);
 	}
 	
+	public int newemployee(MemberDto dto) {
+		return session.insert("newemployee", dto);
+	}
 	
 	
 	

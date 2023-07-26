@@ -21,4 +21,6 @@ public interface MemberService {
 	MemberDto findByEmployeeId(int employee_id);
 	
 	boolean upload(MemberDto dto);
+	
+	boolean newemployee(MemberDto dto);
 }

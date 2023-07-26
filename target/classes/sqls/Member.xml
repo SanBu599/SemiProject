@@ -4,6 +4,12 @@
 
 <mapper namespace="Member">
 
+<select id="idcheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select count(*)
+	from member
+	where id=#{id}
+</select>
+
 <select id="login" parameterType="ssg.com.maeil.dto.MemberDto" 
 					resultType="ssg.com.maeil.dto.MemberDto">
 	select employee_id, employee_name, employee_email, auth,
@@ -58,6 +64,13 @@
 	set filename=#{newfilename}
 	where employee_id=#{employee_id}
 </update>
+
+<insert id="newemployee" parameterType="ssg.com.maeil.dto.MemberDto">	
+	insert into maeil_member(employee_name, employee_password, employee_email, department_id, department_name, auth, edate, erank)
+	values (#{employee_name}, #{employee_password},	 #{employee_email}, #{department_id}, #{department_name}, #{auth}, now(), #{erank})
+	
+</insert>
+
 
 </mapper>
 

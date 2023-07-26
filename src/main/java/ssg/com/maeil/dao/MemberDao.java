@@ -19,4 +19,5 @@ public interface MemberDao {
 	MemberDto findByEmployeeId(int employee_id);
 	
 	int upload(MemberDto dto);
+	int newemployee(MemberDto dto);
 }

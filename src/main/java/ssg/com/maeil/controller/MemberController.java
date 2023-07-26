@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import ssg.com.maeil.dto.AnnouncementDto;
 import com.mysql.cj.Session;
 
 import ssg.com.maeil.dto.MemberDto;
@@ -57,7 +57,7 @@ public class MemberController {
 		}
 		model.addAttribute("loginmsg", loginmsg);
 	
-		return "message";
+	return "message";
 	}
 		
 	@RequestMapping("main.do")
@@ -226,10 +226,23 @@ public class MemberController {
 	}
 	
 	
-	
-	
-	
-	
-	
+	@GetMapping("newemployee.do")
+	public String newemployee() {
+		System.out.println("MemberController newemployee() " + new Date());
+		
+		return "newemployee";
+	}
+	@PostMapping("newemployeeAf.do")
+	public String newemployeeAf(MemberDto dto,Model model) {
+		System.out.println("MemberController newemployeeAf() " + new Date());
+		System.out.println(dto.toString());
+		boolean isS = service.newemployee(dto);
+		String employeemessage = "가입성공";
+		if(isS==false) {
+			employeemessage ="가입성공실패.";
+		}
+		model.addAttribute("employeemessage",employeemessage);
+		return "message";
+	}
 	
 }
