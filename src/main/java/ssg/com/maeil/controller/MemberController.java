@@ -189,7 +189,7 @@ public class MemberController {
 	
 	
 	@PostMapping("upload.do")
-	public String upload(MemberDto mem,
+	public String upload(MemberDto mem, Model model,
 						@RequestParam(value = "fileupload", required = false)
 						MultipartFile fileupload,
 						HttpServletRequest request) {
@@ -208,6 +208,7 @@ public class MemberController {
 		mem.setNewfilename(newfilename);
 		
 		File file = new File(fupload + "/" + newfilename);
+		System.out.println("저장경로" + file);
 		
 		try {
 			FileUtils.writeByteArrayToFile(file, fileupload.getBytes());
@@ -215,6 +216,7 @@ public class MemberController {
 			boolean isS = service.upload(mem);
 			if(isS) {
 				System.out.println("사진이 등록되었습니다.");
+				model.addAttribute("newfilename", newfilename);
 			} else {
 				System.out.println("사진등록에 실패했습니다.");
 			}
