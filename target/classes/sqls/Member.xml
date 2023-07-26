@@ -13,7 +13,7 @@
 <select id="login" parameterType="ssg.com.maeil.dto.MemberDto" 
 					resultType="ssg.com.maeil.dto.MemberDto">
 	select employee_id, employee_name, employee_email, auth,
-			department_id, department_name, edate, erank
+			department_id, department_name, edate, erank, newfilename
 	from maeil_member
 	where employee_id=#{employee_id} and employee_password=#{employee_password}
 </select>
@@ -61,7 +61,7 @@
 
 <update id="upload" parameterType="ssg.com.maeil.dto.MemberDto">
 	update maeil_member
-	set filename=#{newfilename}
+	set filename=#{filename}, newfilename=#{newfilename}
 	where employee_id=#{employee_id}
 </update>
 

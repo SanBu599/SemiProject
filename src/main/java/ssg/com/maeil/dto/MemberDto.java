@@ -34,6 +34,16 @@ public class MemberDto {
 
 	
 	
+	
+	
+	public MemberDto(int employee_id, String newfilename) {
+		super();
+		this.employee_id = employee_id;
+		this.newfilename = newfilename;
+	}
+
+
+
 	public MemberDto(int employee_id, String employee_name, String employee_email, int department_id,
 			String department_name, int auth, String edate, String erank, String filename, String newfilename) {
 		super();

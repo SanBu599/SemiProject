@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="ssg.com.maeil.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -84,6 +85,11 @@ select[disabled] {
 	border: 2px solid black; /* 테두리 스타일 */
 }
 
+.imgfile {
+	width: 150px;
+	height: 200px;
+	align-content: center;
+}
 </style>
 
 
@@ -96,14 +102,19 @@ select[disabled] {
 	<h1>MY PAGE</h1>
 </div>
 <hr/><br/>
- 
- <form action="upload.do" method="post" enctype="multipart/form-data">
+
+<div align="center">
+<img src="http://localhost:9200/Maeil_Naeil/upload/<%=dto.getNewfilename() %>" alt="프로필 이미지" class="imgfile">
+</div>
+
+<form action="upload.do" method="post" enctype="multipart/form-data">
 <div align="center" class="profileImg">
-	<img src="" alt="프로필 이미지">
+	
 	<br/><br/><br/>
 	<input type="hidden" name="employee_id" value="<%=dto.getEmployee_id() %>">
-	<input type="file" name="fileupload">
-	<input type="submit" value="저장">
+	<input type="file" name="fileupload" id="fileupload" style="display:none;">
+	<label for="fileupload">사진 등록하기</label>
+	&nbsp;<input type="submit" value="저장">
 </div>
 </form>
 
