@@ -64,7 +64,6 @@
 	set filename=#{filename}, newfilename=#{newfilename}
 	where employee_id=#{employee_id}
 </update>
-
 <insert id="newemployee" parameterType="ssg.com.maeil.dto.MemberDto">	
 	insert into maeil_member(employee_name, employee_password, employee_email, department_id, department_name, auth, edate, erank)
 	values (#{employee_name}, #{employee_password},	 #{employee_email}, #{department_id}, #{department_name}, #{auth}, now(), #{erank})
