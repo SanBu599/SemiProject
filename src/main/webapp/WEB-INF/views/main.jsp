@@ -164,7 +164,7 @@ body {
 			<button type="submit">공지사항</button>
 		</form><br>
 	<%
-			if(dto.getAuth()==3){
+			if(mem.getAuth()==3){
 		%>
 			<a href="newemployee.do">사원 추가</a>
 		<%
@@ -174,7 +174,7 @@ body {
   <div class="item content-1">
   	<div id="circle"></div>
   	<br>
-  	<p><%=dto.getEmployee_name() %><%=dto.getErank() %> 님</p><hr>
+  	<p><%=mem.getEmployee_name() %><%=mem.getErank() %> 님</p><hr>
   	<p>출근 : <button>출근</button></p><br>
   	<p>퇴근 : <button>퇴근</button></p>
   </div>
