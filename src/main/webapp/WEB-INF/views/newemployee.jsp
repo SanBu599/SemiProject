@@ -86,6 +86,12 @@
         		</select>
         	</td>
         </tr>
+                <tr>
+        	<th>부서번호</th>
+        	<td>
+        		<input type="text" name="department_id" id="department_id" readonly="readonly">
+        	</td>
+        </tr>
         <tr>
         	<th>관리자</th>
         	<td>

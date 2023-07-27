@@ -19,7 +19,7 @@ public class uploadUtil {
 		String fpost ="";
 		
 		if(filename.indexOf('.') >= 0) {
-			fpost = filename.substring(filename.indexOf('.'));
+			fpost = filename.substring(filename.indexOf('.')).toLowerCase();
 			newfilename = dto.getEmployee_id() + fpost;
 		} else {
 			newfilename = dto.getEmployee_id() + ".back";

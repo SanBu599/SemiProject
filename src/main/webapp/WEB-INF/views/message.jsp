@@ -84,7 +84,7 @@ if(login != null && login.equals("") == false){
 	}	
 String employeemessage = (String)request.getAttribute("employeemessage");
 if(employeemessage != null && !employeemessage.equals("")){
-	if(employeemessage.equals("가입성공")){
+	if(employeemessage.equals("Y")){
 		%>
 		<script type="text/javascript">
 		alert("생성되었습니다");

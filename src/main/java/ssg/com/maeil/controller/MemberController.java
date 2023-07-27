@@ -234,12 +234,14 @@ public class MemberController {
 		
 		return "newemployee";
 	}
+	
 	@PostMapping("newemployeeAf.do")
 	public String newemployeeAf(MemberDto dto,Model model) {
 		System.out.println("MemberController newemployeeAf() " + new Date());
 		System.out.println(dto.toString());
 		boolean isS = service.newemployee(dto);
 		String employeemessage = "가입성공";
+		String employeemessage = "Y";
 		if(isS==false) {
 			employeemessage ="가입성공실패.";
 		}
